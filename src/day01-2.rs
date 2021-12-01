@@ -1,0 +1,26 @@
+use std::fs::File;
+use std::io::{self, BufRead};
+use std::path::Path;
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let lines = read_lines("data/day1-1.txt")?;
+    let depths = lines
+        .flat_map(|v| v.ok()?.parse::<i32>().ok())
+        .collect::<Vec<i32>>();
+    let sums = depths
+        .windows(3)
+        .map(|a| dbg!(a).iter().sum())
+        .collect();
+    println!("{}", count_increases(&sums));
+    Ok(())
+}
+
+fn count_increases(input: &Vec<i32>) -> usize {
+    input.windows(2).filter(|a| a[0] < a[1]).count()
+}
+
+fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
+where P: AsRef<Path>, {
+    let file = File::open(filename)?;
+    Ok(io::BufReader::new(file).lines())
+}
