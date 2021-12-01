@@ -9,7 +9,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .collect::<Vec<i32>>();
     let sums = depths
         .windows(3)
-        .map(|a| dbg!(a).iter().sum())
+        .map(|a| a.iter().sum())
         .collect();
     println!("{}", count_increases(&sums));
     Ok(())

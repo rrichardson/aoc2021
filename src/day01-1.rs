@@ -4,7 +4,7 @@ use std::path::Path;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let lines = read_lines("data/day1-1.txt")?;
-    let depths = lines.flat_map(|v| dbg!(v.ok()?.parse::<i32>().ok())).collect();
+    let depths = lines.flat_map(|v| v.ok()?.parse::<i32>().ok()).collect();
     println!("{}", count_increases(&depths));
     Ok(())
 }
